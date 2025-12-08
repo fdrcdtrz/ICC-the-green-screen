@@ -1,0 +1,35 @@
+version: "3.1"
+
+nlu:
+#- intent: session_start
+#  examples: |
+#    - /start
+#    - start
+
+#- intent: start
+#  examples: |
+#    - /start
+#    - start
+#    - let's begin
+
+
+- intent: greet
+  examples: |
+    - hi
+    - hello
+
+- intent: choose_movie
+  examples: |
+    - /choose_movie{"movie":"Inception"}
+    - /choose_movie{"movie":"Interstellar"}
+    - /choose_movie{"movie":"The Matrix"}
+
+- intent: choose_quality
+  examples: |
+    - /choose_quality{"quality":"Low"}
+    - /choose_quality{"quality":"Medium"}
+    - /choose_quality{"quality":"High"}
+
+- intent: confirm_send
+  examples: |
+    - /confirm_send

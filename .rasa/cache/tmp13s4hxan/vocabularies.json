@@ -1,0 +1,34 @@
+{
+  "text": {
+    "start": 2,
+    "choose_movie": 0,
+    "choose_quality": 1
+  },
+  "intent": {
+    "session_start": 2,
+    "choose_movie": 0,
+    "choose_quality": 1
+  },
+  "response": null,
+  "action_name": {
+    "action_listen": 6,
+    "action_restart": 7,
+    "action_session_start": 10,
+    "action_default_fallback": 4,
+    "action_deactivate_loop": 1,
+    "action_revert_fallback_events": 8,
+    "action_default_ask_affirmation": 2,
+    "action_default_ask_rephrase": 3,
+    "action_two_stage_fallback": 11,
+    "action_unlikely_intent": 12,
+    "action_back": 0,
+    "action_extract_slots": 5,
+    "action_send_json_to_onos": 9,
+    "utter_choose_quality": 13,
+    "utter_confirm": 14,
+    "utter_greet": 15,
+    "utter_movie_catalog": 16
+  },
+  "action_text": null,
+  "intent_response_key": null
+}

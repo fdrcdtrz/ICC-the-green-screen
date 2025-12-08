@@ -1,0 +1,42 @@
+{
+  "lookup": {
+    "rules": {
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"goodbye\"}}]": "utter_goodbye",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"goodbye\"}}, {\"prev_action\": {\"action_name\": \"utter_goodbye\"}, \"user\": {\"intent\": \"goodbye\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"choose_movie\"}}]": "action_set_movie_slot",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"choose_movie\"}}, {\"prev_action\": {\"action_name\": \"action_set_movie_slot\"}, \"user\": {\"intent\": \"choose_movie\"}}]": "utter_choose_quality",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"choose_movie\"}}, {\"prev_action\": {\"action_name\": \"action_set_movie_slot\"}, \"user\": {\"intent\": \"choose_movie\"}}, {\"prev_action\": {\"action_name\": \"utter_choose_quality\"}, \"user\": {\"intent\": \"choose_movie\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"choose_quality\"}}]": "action_set_quality_slot",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"choose_quality\"}}, {\"prev_action\": {\"action_name\": \"action_set_quality_slot\"}, \"user\": {\"intent\": \"choose_quality\"}}]": "utter_confirm",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"choose_quality\"}}, {\"prev_action\": {\"action_name\": \"action_set_quality_slot\"}, \"user\": {\"intent\": \"choose_quality\"}}, {\"prev_action\": {\"action_name\": \"utter_confirm\"}, \"user\": {\"intent\": \"choose_quality\"}}]": "action_send_json_to_onos",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"choose_quality\"}}, {\"prev_action\": {\"action_name\": \"action_set_quality_slot\"}, \"user\": {\"intent\": \"choose_quality\"}}, {\"prev_action\": {\"action_name\": \"utter_confirm\"}, \"user\": {\"intent\": \"choose_quality\"}}, {\"prev_action\": {\"action_name\": \"action_send_json_to_onos\"}, \"user\": {\"intent\": \"choose_quality\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"bot_challenge\"}}]": "utter_iambot",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"bot_challenge\"}}, {\"prev_action\": {\"action_name\": \"utter_iambot\"}, \"user\": {\"intent\": \"bot_challenge\"}}]": "action_listen",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"action_session_start\"}}]": "utter_greet",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"action_session_start\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"utter_greet\"}}]": "utter_movie_catalog",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"action_session_start\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"utter_greet\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"utter_movie_catalog\"}}]": "action_listen"
+    },
+    "rule_only_slots": [],
+    "rule_only_loops": [],
+    "rules_for_loop_unhappy_path": {},
+    "rules_not_in_stories": [
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"choose_movie\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"choose_movie\"}}, {\"prev_action\": {\"action_name\": \"action_set_movie_slot\"}, \"user\": {\"intent\": \"choose_movie\"}}]",
+      "predicting default action with intent restart",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"goodbye\"}}]",
+      "predicting default action with intent session_start",
+      "predicting default action with intent back",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"choose_quality\"}}, {\"prev_action\": {\"action_name\": \"action_set_quality_slot\"}, \"user\": {\"intent\": \"choose_quality\"}}, {\"prev_action\": {\"action_name\": \"utter_confirm\"}, \"user\": {\"intent\": \"choose_quality\"}}, {\"prev_action\": {\"action_name\": \"action_send_json_to_onos\"}, \"user\": {\"intent\": \"choose_quality\"}}]",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"action_session_start\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"utter_greet\"}}]",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"action_session_start\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"goodbye\"}}, {\"prev_action\": {\"action_name\": \"utter_goodbye\"}, \"user\": {\"intent\": \"goodbye\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"bot_challenge\"}}, {\"prev_action\": {\"action_name\": \"utter_iambot\"}, \"user\": {\"intent\": \"bot_challenge\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"bot_challenge\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"choose_quality\"}}, {\"prev_action\": {\"action_name\": \"action_set_quality_slot\"}, \"user\": {\"intent\": \"choose_quality\"}}, {\"prev_action\": {\"action_name\": \"utter_confirm\"}, \"user\": {\"intent\": \"choose_quality\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"choose_quality\"}}, {\"prev_action\": {\"action_name\": \"action_set_quality_slot\"}, \"user\": {\"intent\": \"choose_quality\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"choose_quality\"}}]",
+      "[{\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"action_session_start\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"utter_greet\"}}, {\"active_loop\": {\"name\": \"should_not_be_set\"}, \"prev_action\": {\"action_name\": \"utter_movie_catalog\"}}]",
+      "[{\"prev_action\": {\"action_name\": \"action_listen\"}, \"user\": {\"intent\": \"choose_movie\"}}, {\"prev_action\": {\"action_name\": \"action_set_movie_slot\"}, \"user\": {\"intent\": \"choose_movie\"}}, {\"prev_action\": {\"action_name\": \"utter_choose_quality\"}, \"user\": {\"intent\": \"choose_movie\"}}]"
+    ]
+  }
+}

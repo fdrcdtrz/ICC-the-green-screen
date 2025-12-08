@@ -1,0 +1,31 @@
+version: "3.1"
+
+#- rule: Handle /start
+#  steps:
+#  - intent: start
+#  - action: utter_greet
+#  - action: utter_movie_catalog
+
+rules:
+
+- rule: Greet user in shell
+  steps:
+    - intent: greet
+    - action: utter_greet
+
+- rule: After choosing movie
+  steps:
+    - intent: choose_movie
+    - action: action_set_movie_slot
+    - action: utter_choose_quality
+
+- rule: After choosing quality
+  steps:
+    - intent: choose_quality
+    - action: action_set_quality_slot
+    - action: utter_confirm_send
+
+- rule: Send JSON after confirmation
+  steps:
+    - intent: confirm_send
+    - action: action_send_json_to_onos

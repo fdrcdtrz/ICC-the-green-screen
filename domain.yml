@@ -1,0 +1,66 @@
+version: "3.1"
+
+intents:
+  - choose_movie
+  - choose_quality
+  - greet
+  - confirm_send
+#  - start
+
+slots:
+  movie:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: movie
+
+  quality:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: quality
+
+entities:
+  - movie
+  - quality
+
+responses:
+  utter_greet:
+    - text: "Hi! I can suggest some movies. Choose one:"
+      buttons:
+        - title: "Inception"
+          payload: '/choose_movie{{"movie":"Inception"}}'
+        - title: "Interstellar"
+          payload: '/choose_movie{{"movie":"Interstellar"}}'
+        - title: "The Matrix"
+          payload: '/choose_movie{{"movie":"The Matrix"}}'
+
+  utter_choose_quality:
+    - text: "Select your subscription, and the streaming quality level:"
+      buttons:
+        - title: "Basic with Ads (720p)"
+          payload: '/choose_quality{{"quality":"Low"}}'
+        - title: "Standard (1080p)"
+          payload: '/choose_quality{{"quality":"Medium"}}'
+        - title: "Premium (4k)"
+          payload: '/choose_quality{{"quality":"High"}}'
+
+  utter_confirm:
+    - text: "You chose '{movie}' with '{quality}' quality. Sending request…"
+
+  utter_confirm_send:
+    - text: "Everything set. Press to confirm:"
+      buttons:
+        - title: "Confirm and send"
+          payload: '/confirm_send'
+
+
+actions:
+  - utter_greet
+  - utter_choose_quality
+  - utter_confirm
+  - confirm_send
+  - action_set_movie_slot
+  - action_set_quality_slot
+  - action_send_json_to_onos
+

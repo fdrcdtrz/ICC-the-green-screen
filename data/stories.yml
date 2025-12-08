@@ -1,0 +1,8 @@
+version: "3.1"
+
+#stories:
+#- story: Start conversation
+#  steps:
+#  - intent: start
+#  - action: utter_greet
+#  - action: utter_movie_catalog

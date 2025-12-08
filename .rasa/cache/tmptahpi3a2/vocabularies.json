@@ -1,0 +1,53 @@
+{
+  "text": {
+    "hello": 1,
+    "hi": 3,
+    "hey": 2,
+    "there": 14,
+    "i": 5,
+    "want": 16,
+    "to": 15,
+    "watch": 17,
+    "inception": 6,
+    "choose": 0,
+    "interstellar": 7,
+    "pick": 11,
+    "the": 13,
+    "matrix": 9,
+    "low": 8,
+    "quality": 12,
+    "medium": 10,
+    "high": 4
+  },
+  "intent": {
+    "greet": 4,
+    "choose_movie": 1,
+    "choose_quality": 2,
+    "bot_challenge": 0,
+    "goodbye": 3
+  },
+  "response": null,
+  "action_name": {
+    "action_listen": 6,
+    "action_restart": 7,
+    "action_session_start": 10,
+    "action_default_fallback": 4,
+    "action_deactivate_loop": 1,
+    "action_revert_fallback_events": 8,
+    "action_default_ask_affirmation": 2,
+    "action_default_ask_rephrase": 3,
+    "action_two_stage_fallback": 11,
+    "action_unlikely_intent": 12,
+    "action_back": 0,
+    "action_extract_slots": 5,
+    "action_send_json_to_onos": 9,
+    "utter_choose_quality": 13,
+    "utter_confirm": 14,
+    "utter_goodbye": 15,
+    "utter_greet": 16,
+    "utter_iamabot": 17,
+    "utter_movie_catalog": 18
+  },
+  "action_text": null,
+  "intent_response_key": null
+}
