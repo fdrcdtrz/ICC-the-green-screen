@@ -5,6 +5,8 @@ from rasa_sdk.events import SlotSet
 import requests, json
 
 onos_controller_url = "http://192.168.31.1:8181/onos/v1"
+username = "onos"
+password = "rocks"
 
 # -----------------------------
 #  Mapping quality levels to Mbps
@@ -105,7 +107,7 @@ class ActionSendJsonToOnos(Action):
         headers = {"Content-Type": "application/json"}
 
         try:
-            response = requests.post(onos_controller_url, data=json.dumps(json_data), headers=headers)
+            response = requests.post(onos_controller_url, data=json.dumps(json_data), headers=headers, auth=(username, password))
             dispatcher.utter_message(text=f"Request sent! ONOS response: {response.status_code}")
         except Exception as e:
             dispatcher.utter_message(text=f"Error sending JSON: {e}")
