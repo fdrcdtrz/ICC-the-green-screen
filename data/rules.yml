@@ -7,25 +7,34 @@ version: "3.1"
 #  - action: utter_movie_catalog
 
 rules:
+  - rule: Greet
+    steps:
+      - intent: greet
+      - action: utter_greet
 
-- rule: Greet user in shell
-  steps:
-    - intent: greet
-    - action: utter_greet
+  - rule: Movie selection flow
+    steps:
+      - intent: choose_movie
+      - action: action_set_movie_slot
+      - action: utter_choose_quality
 
-- rule: After choosing movie
-  steps:
-    - intent: choose_movie
-    - action: action_set_movie_slot
-    - action: utter_choose_quality
+  - rule: Quality selection flow
+    steps:
+      - intent: choose_quality
+      - action: action_set_quality_slot
+      - action: utter_choose_client_ip
 
-- rule: After choosing quality
-  steps:
-    - intent: choose_quality
-    - action: action_set_quality_slot
-    - action: utter_confirm_send
+  - rule: Client IP selection + compute eta_min
+    steps:
+      - intent: choose_client_ip
+      - action: action_set_client_ip_slot
+      - action: action_calculate_eta_min
+      - action: utter_confirm
 
-- rule: Send JSON after confirmation
-  steps:
-    - intent: confirm_send
-    - action: action_send_json_to_onos
+  - rule: Confirm and send to ONOS
+    steps:
+      - intent: confirm_send
+      - action: action_send_json_to_onos
+      - action: utter_confirm_send
+      - action: action_update_eta_min_background
+      - action: utter_eta_min_updated

@@ -3,9 +3,9 @@ version: "3.1"
 intents:
   - choose_movie
   - choose_quality
+  - choose_client_ip
   - greet
   - confirm_send
-#  - start
 
 slots:
   movie:
@@ -20,9 +20,21 @@ slots:
       - type: from_entity
         entity: quality
 
+  client_ip:
+    type: text
+    initial_value: ""
+    mappings:
+      - type: from_entity
+        entity: client_ip
+
+  eta_min_threshold:
+    type: float
+    initial_value: 1.0
+
 entities:
   - movie
   - quality
+  - client_ip
 
 responses:
   utter_greet:
@@ -36,31 +48,44 @@ responses:
           payload: '/choose_movie{{"movie":"The Matrix"}}'
 
   utter_choose_quality:
-    - text: "Select your subscription, and the streaming quality level:"
+    - text: "Select your subscription level:"
       buttons:
-        - title: "Basic with Ads (720p)"
+        - title: "Basic (720p)"
           payload: '/choose_quality{{"quality":"Low"}}'
         - title: "Standard (1080p)"
           payload: '/choose_quality{{"quality":"Medium"}}'
         - title: "Premium (4k)"
           payload: '/choose_quality{{"quality":"High"}}'
 
+  utter_choose_client_ip:
+    - text: "Select the client address:"
+      buttons:
+        - title: "Client 10.0.0.5"
+          payload: '/choose_client_ip{{"client_ip":"10.0.0.5"}}'
+        - title: "Client 10.0.0.6"
+          payload: '/choose_client_ip{{"client_ip":"10.0.0.6"}}'
+        - title: "Client 10.0.0.7"
+          payload: '/choose_client_ip{{"client_ip":"10.0.0.7"}}'
+
   utter_confirm:
-    - text: "You chose '{movie}' with '{quality}' quality. Sending request…"
+    - text: "You chose '{movie}' at '{quality}' quality from IP {client_ip}. Using η_min={eta_min_threshold:.4f}. Sending to ONOS…"
 
   utter_confirm_send:
-    - text: "Everything set. Press to confirm:"
-      buttons:
-        - title: "Confirm and send"
-          payload: '/confirm_send'
+    - text: "✓ Request sent to ONOS. η_min will be updated in background if needed."
 
+  utter_eta_min_updated:
+    - text: "✓ η_min updated for '{movie}' at '{quality}': {eta_min_threshold:.4f}"
 
 actions:
   - utter_greet
   - utter_choose_quality
+  - utter_choose_client_ip
   - utter_confirm
-  - confirm_send
+  - utter_confirm_send
+  - utter_eta_min_updated
   - action_set_movie_slot
   - action_set_quality_slot
+  - action_set_client_ip_slot
+  - action_calculate_eta_min
   - action_send_json_to_onos
-
+  - action_update_eta_min_background
