@@ -98,7 +98,6 @@ def update_eta_min_probabilistic(movie: str, quality: str, n_violations: int, n_
     P_x = max(0.0, min(1.0, P_x))
 
     eta_min_new = (1.0 - P_x) * eta_min_old
-    eta_min_new = max(0.3, min(2.0, eta_min_new))
 
     adjustment_pct = 100.0 * (eta_min_new - eta_min_old) / eta_min_old if eta_min_old != 0 else 0
     print(f"  η_min: {eta_min_old:.4f} → {eta_min_new:.4f} ({adjustment_pct:+.1f}%)")
@@ -251,9 +250,9 @@ class ActionSendJsonToOnos(Action):
         success = client.post_intent(json_data)
 
         if success:
-            dispatcher.utter_message(f"✓ Sent to ONOS with η_min={eta_min:.4f}")
+            dispatcher.utter_message(f"Sent to ONOS with η_min={eta_min:.4f}")
         else:
-            dispatcher.utter_message("✗ Error sending to ONOS")
+            dispatcher.utter_message("Error sending to ONOS")
 
         return []
 
