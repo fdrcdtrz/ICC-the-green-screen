@@ -140,16 +140,17 @@ class ONOSClient:
             print(f"[ONOS ERROR] POST: {e}")
             return False
 
-    def get_flow_path_stats(self, client_ip: str) -> Dict:
+    def get_flow_path_stats(self, flow_id: str) -> Dict:
         """
         GET verso endpoint (da definire) che restituisce:
           { "n_paths": int, "n_violations": int }
         """
 
-        url = f"http://localhost:8181/onos/v1/optimization/api/get/paths" #### cambiare
+        url = f"http://localhost:8181/onos/v1/optimization/api/stats?id={flow_id}" 
         try:
-
-            return
+            resp = requests.get(url, auth=self.auth, timeout=self.timeout)
+            resp.raise_for_status()
+            return resp.json()
         except Exception as e:
             print(f"[ONOS ERROR] GET path stats: {e}")
             return {"n_paths": 0, "n_violations": 0}
@@ -226,6 +227,7 @@ class ActionSendJsonToOnos(Action):
         quality = tracker.get_slot("quality")
         eta_min = tracker.get_slot("eta_min_threshold") or 1.0
         client_ip = tracker.get_slot("client_ip") or "0.0.0.0"
+        generated_id = f"intent_{int(time.time())}"
 
         if not movie or not quality or client_ip == "0.0.0.0":
             dispatcher.utter_message("Error: incomplete information!")
@@ -234,7 +236,7 @@ class ActionSendJsonToOnos(Action):
         throughput_mbps = quality_to_mbps(quality)
 
         json_data = {
-            "id": f"intent_{int(time.time())}",
+            "id": generated_id,
             "name": "video_streaming_request",
             "movie": movie,
             "quality": quality,
@@ -250,11 +252,11 @@ class ActionSendJsonToOnos(Action):
         success = client.post_intent(json_data)
 
         if success:
-            dispatcher.utter_message(f"Sent to ONOS with η_min={eta_min:.4f}")
+           dispatcher.utter_message(f"Sent to ONOS with η_min={eta_min:.4f}")
         else:
             dispatcher.utter_message("Error sending to ONOS")
 
-        return []
+        return [SlotSet("request_id", generated_id)]
 
 # ========== ACTION: AGGIORNAMENTO η_min IN BACKGROUND ==========
 class ActionUpdateEtaMinBackground(Action):
@@ -269,6 +271,11 @@ class ActionUpdateEtaMinBackground(Action):
         movie = tracker.get_slot("movie")
         quality = tracker.get_slot("quality")
         client_ip = tracker.get_slot("client_ip") or "0.0.0.0"
+        request_id = tracker.get_slot("request_id")
+
+        if not request_id:
+            print("[ERROR] No request_id found in slots!")
+            return []
 
         if not movie or not quality or client_ip == "0.0.0.0":
             return []
@@ -278,7 +285,7 @@ class ActionUpdateEtaMinBackground(Action):
 
         t = threading.Thread(
             target=self._background_update_eta_min,
-            args=(movie, quality, client_ip, method),
+            args=(movie, quality, client_ip, request_id, method),
             daemon=True
         )
         t.start()
@@ -286,7 +293,7 @@ class ActionUpdateEtaMinBackground(Action):
         print(f"\n[BACKGROUND] η_min update thread started (method={method})")
         return []
 
-    def _background_update_eta_min(self, movie: str, quality: str, client_ip: str, method: str):
+    def _background_update_eta_min(self, movie: str, quality: str, client_ip: str, request_id:str, method: str):
         print(f"\n[BACKGROUND-THREAD] Starting, waiting 5s for ONOS measurements...")
         time.sleep(5)
 
@@ -294,7 +301,7 @@ class ActionUpdateEtaMinBackground(Action):
 
         for attempt in range(3):
             try:
-                stats = client.get_flow_path_stats(client_ip) ### !!!!!!
+                stats = client.get_flow_path_stats(request_id) ### !!!!!!
                 n_paths = stats.get("n_paths", 0)
                 n_violations = stats.get("n_violations", 0)
 

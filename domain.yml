@@ -30,6 +30,13 @@ slots:
   eta_min_threshold:
     type: float
     initial_value: 1.0
+    mappings:
+      - type: custom
+
+  request_id:
+    type: text
+    mappings:
+      - type: custom
 
 entities:
   - movie
@@ -60,21 +67,21 @@ responses:
   utter_choose_client_ip:
     - text: "Select the client address:"
       buttons:
-        - title: "Client 10.0.0.5"
-          payload: '/choose_client_ip{{"client_ip":"10.0.0.5"}}'
-        - title: "Client 10.0.0.6"
-          payload: '/choose_client_ip{{"client_ip":"10.0.0.6"}}'
-        - title: "Client 10.0.0.7"
-          payload: '/choose_client_ip{{"client_ip":"10.0.0.7"}}'
+        - title: "Client 10.0.0.1"
+          payload: '/choose_client_ip{{"client_ip":"10.0.0.1"}}'
+        - title: "Client 10.0.0.2"
+          payload: '/choose_client_ip{{"client_ip":"10.0.0.2"}}'
+        - title: "Client 10.0.0.3"
+          payload: '/choose_client_ip{{"client_ip":"10.0.0.3"}}'
 
   utter_confirm:
-    - text: "You chose '{movie}' at '{quality}' quality from IP {client_ip}. Using η_min={eta_min_threshold:.4f}. Sending to ONOS…"
-
+    - text: "You chose '{movie}' at '{quality}' quality from IP {client_ip}. Using η_min={eta_min_threshold}. Sending to ONOS…"
+    
   utter_confirm_send:
     - text: "✓ Request sent to ONOS. η_min will be updated in background if needed."
 
   utter_eta_min_updated:
-    - text: "✓ η_min updated for '{movie}' at '{quality}': {eta_min_threshold:.4f}"
+    - text: "✓ η_min updated for '{movie}' at '{quality}': {eta_min_threshold}"
 
 actions:
   - utter_greet
