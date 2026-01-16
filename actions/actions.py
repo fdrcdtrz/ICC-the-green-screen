@@ -154,6 +154,33 @@ class ONOSClient:
         except Exception as e:
             print(f"[ONOS ERROR] GET path stats: {e}")
             return {"n_paths": 0, "n_violations": 0}
+        
+    def update_flow_eta(self, flow_id: str, new_eta: float) -> bool:
+        """
+        POST per l'aggiornamento di eta_min
+        """
+        url = "http://localhost:8181/onos/v1/optimization/api/update_eta"
+        payload = {
+            "id": flow_id,
+            "eta_min": new_eta
+        }
+        try:
+            resp = requests.post(
+                url,
+                data=json.dumps(payload),
+                headers={"Content-Type": "application/json"},
+                auth=self.auth,
+                timeout=self.timeout
+            )
+            if resp.status_code == 200:
+                print(f"[ONOS-UPDATE] Success: Flow {flow_id} updated to η_min={new_eta:.4f}")
+                return True
+            else:
+                print(f"[ONOS-UPDATE] Failed: {resp.status_code} - {resp.text}")
+                return False
+        except Exception as e:
+            print(f"[ONOS ERROR] Update ETA: {e}")
+            return False
 
 # ========== ACTIONS DI SET SLOT ==========
 class ActionSetMovieSlot(Action):
@@ -281,7 +308,7 @@ class ActionUpdateEtaMinBackground(Action):
             return []
 
         # SCEGLI METODO: "ema" oppure "probabilistic"
-        method = "ema"
+        method = "probabilistic"
 
         t = threading.Thread(
             target=self._background_update_eta_min,
@@ -319,6 +346,9 @@ class ActionUpdateEtaMinBackground(Action):
 
                     update_eta_min_in_dict(movie, quality, new_eta)
                     print(f"[BACKGROUND-THREAD] η_min updated → {new_eta:.4f}")
+
+                    print(f"[BACKGROUND] Pushing new η_min={new_eta:.4f} to ONOS for flow {request_id}...")
+                    client.update_flow_eta(request_id, new_eta)
                     return
 
                 if attempt < 2:
