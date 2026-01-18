@@ -27,15 +27,15 @@ def quality_to_mbps(quality: str) -> float:
 
 # ========== DIZIONARIO eta per (MOVIE, QUALITY) ==========
 ETA_MIN_DICTIONARY = {
-    ("Inception", "Low"): 2.68e11,
-    ("Inception", "Medium"): 2.68e11,
-    ("Inception", "High"): 2.68e11,
-    ("Interstellar", "Low"): 2.68e11,
-    ("Interstellar", "Medium"): 2.68e11,
-    ("Interstellar", "High"): 2.68e11,
-    ("The Matrix", "Low"): 2.68e11,
-    ("The Matrix", "Medium"): 2.68e11,
-    ("The Matrix", "High"): 2.68e11,
+    ("Inception", "Low"): 2.68e6,
+    ("Inception", "Medium"): 2.68e6,
+    ("Inception", "High"): 2.68e6,
+    ("Interstellar", "Low"): 2.68e6,
+    ("Interstellar", "Medium"): 2.68e6,
+    ("Interstellar", "High"): 2.68e6,
+    ("The Matrix", "Low"): 2.68e6,
+    ("The Matrix", "Medium"): 2.68e6,
+    ("The Matrix", "High"): 2.68e6,
 }
 
 # ========== LOOKUP η_min ==========
